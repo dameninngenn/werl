@@ -1,0 +1,2427 @@
+--- toke.c	2010-05-14 07:01:07.000000000 +0900
++++ toke.c.for_werl	2010-09-30 18:28:18.000000000 +0900
+@@ -8123,6 +8123,16 @@
+             return KEY_y;
+           }
+ 
++        case 'w':
++          {                                       /* w          */
++            return KEY_m;
++          }
++
++        case 'W':
++          {                                       /* W          */
++            return KEY_q;
++          }
++
+         default:
+           goto unknown;
+       }
+@@ -8269,6 +8279,40 @@
+ 
+           goto unknown;
+ 
++        case 'w':
++          switch (name[1])
++          {
++            case 'w':
++              {                                   /* ww         */
++                return KEY_s;
++              }
++
++            case 'W':
++              {                                   /* wW         */
++                return -KEY_x;
++              }
++
++            default:
++              goto unknown;
++          }
++
++        case 'W':
++          switch (name[1])
++          {
++            case 'w':
++              {                                   /* Ww         */
++                return KEY_y;
++              }
++
++            case 'W':
++              {                                   /* WW         */
++                return KEY_do;
++              }
++
++            default:
++              goto unknown;
++          }
++
+         default:
+           goto unknown;
+       }
+@@ -8554,6 +8598,68 @@
+ 
+           goto unknown;
+ 
++        case 'w':
++          switch (name[1])
++          {
++            case 'w':
++              if (name[2] == 'w')
++              {                                   /* www        */
++                return -KEY_eq;
++              }
++              if (name[2] == 'W')
++              {                                   /* wwW        */
++                return -KEY_ge;
++              }
++
++              goto unknown;
++
++            case 'W':
++              if (name[2] == 'w')
++              {                                   /* wWw        */
++                return -KEY_gt;
++              }
++              if (name[2] == 'W')
++              {                                   /* wWW        */
++                return KEY_if;
++              }
++
++              goto unknown;
++
++            default:
++              goto unknown;
++          }
++
++        case 'W':
++          switch (name[1])
++          {
++            case 'w':
++              if (name[2] == 'w')
++              {                                   /* Www        */
++                return -KEY_lc;
++              }
++              if (name[2] == 'W')
++              {                                   /* WwW        */
++                return -KEY_le;
++              }
++
++              goto unknown;
++
++            case 'W':
++              if (name[2] == 'w')
++              {                                   /* WWw        */
++                return -KEY_lt;
++              }
++              if (name[2] == 'W')
++              {                                   /* WWW        */
++                return KEY_my;
++              }
++
++              goto unknown;
++
++            default:
++              goto unknown;
++          }
++
+         default:
+           goto unknown;
+       }
+@@ -9022,6 +9128,109 @@
+ 
+               goto unknown;
+ 
++            case 'w':
++              if (name[2] == 'w' &&
++                  name[3] == 'w')
++              {                                   /* wwww       */
++                return -KEY_ne;
++              }
++              if (name[2] == 'w' &&
++                  name[3] == 'W')
++              {                                   /* wwwW       */
++                return KEY_no;
++              }
++              if (name[2] == 'W' &&
++                  name[3] == 'w')
++              {                                   /* wwWw       */
++                return -KEY_or;
++              }
++              if (name[2] == 'W' &&
++                  name[3] == 'W')
++              {                                   /* wwWW       */
++                return KEY_qq;
++              }
++
++              goto unknown;
++
++            case 'W':
++              if (name[2] == 'w' &&
++                  name[3] == 'w')
++              {                                   /* wWww       */
++                return KEY_qr;
++              }
++              if (name[2] == 'w' &&
++                  name[3] == 'W')
++              {                                   /* wWwW       */
++                return KEY_qw;
++              }
++              if (name[2] == 'W' &&
++                  name[3] == 'w')
++              {                                   /* wWWw       */
++                return KEY_qx;
++              }
++              if (name[2] == 'W' &&
++                  name[3] == 'W')
++              {                                   /* wWWW       */
++                return KEY_tr;
++              }
++
++              goto unknown;
++
++            default:
++              goto unknown;
++          }
++
++        case 'W':
++          switch (name[1])
++          {
++            case 'w':
++              if (name[2] == 'w' &&
++                  name[3] == 'w')
++              {                                   /* Wwww       */
++                return -KEY_uc;
++              }
++              if (name[2] == 'w' &&
++                  name[3] == 'W')
++              {                                   /* WwwW       */
++                return KEY_END;
++              }
++              if (name[2] == 'W' &&
++                  name[3] == 'w')
++              {                                   /* WwWw       */
++                return -KEY_abs;
++              }
++              if (name[2] == 'W' &&
++                  name[3] == 'W')
++              {                                   /* WwWW       */
++                return -KEY_and;
++              }
++
++              goto unknown;
++
++            case 'W':
++              if (name[2] == 'w' &&
++                  name[3] == 'w')
++              {                                   /* WWww       */
++                return -KEY_chr;
++              }
++              if (name[2] == 'w' &&
++                  name[3] == 'W')
++              {                                   /* WWwW       */
++                return -KEY_cmp;
++              }
++              if (name[2] == 'W' &&
++                  name[3] == 'w')
++              {                                   /* WWWw       */
++                return -KEY_cos;
++              }
++              if (name[2] == 'W' &&
++                  name[3] == 'W')
++              {                                   /* WWWW       */
++                return -KEY_die;
++              }
++
++              goto unknown;
++
+             default:
+               goto unknown;
+           }
+@@ -9517,6 +9726,249 @@
+ 
+               goto unknown;
+ 
++            case 'w':
++              if (name[2] == 'w' &&
++                  name[3] == 'w' &&
++                  name[4] == 'w')
++              {                                   /* wwwww      */
++                return -KEY_eof;
++              }
++
++              if (name[2] == 'w' &&
++                  name[3] == 'w' &&
++                  name[4] == 'W')
++              {                                   /* wwwwW      */
++                return -KEY_exp;
++              }
++
++              if (name[2] == 'w' &&
++                  name[3] == 'W' &&
++                  name[4] == 'w')
++              {                                   /* wwwWw      */
++                return KEY_for;
++              }
++
++              if (name[2] == 'w' &&
++                  name[3] == 'W' &&
++                  name[4] == 'W')
++              {                                   /* wwwWW      */
++                return -KEY_hex;
++              }
++
++              if (name[2] == 'W' &&
++                  name[3] == 'w' &&
++                  name[4] == 'w')
++              {                                   /* wwWww      */
++                return -KEY_int;
++              }
++
++              if (name[2] == 'W' &&
++                  name[3] == 'w' &&
++                  name[4] == 'W')
++              {                                   /* wwWwW      */
++                return -KEY_log;
++              }
++
++              if (name[2] == 'W' &&
++                  name[3] == 'W' &&
++                  name[4] == 'w')
++              {                                   /* wwWWw      */
++                return KEY_map;
++              }
++
++              if (name[2] == 'W' &&
++                  name[3] == 'W' &&
++                  name[4] == 'W')
++              {                                   /* wwWWW      */
++                return -KEY_not;
++              }
++
++              goto unknown;
++
++            case 'W':
++              if (name[2] == 'w' &&
++                  name[3] == 'w' &&
++                  name[4] == 'w')
++              {                                   /* wWwww      */
++                return -KEY_oct;
++              }
++
++              if (name[2] == 'w' &&
++                  name[3] == 'w' &&
++                  name[4] == 'W')
++              {                                   /* wWwwW      */
++                return -KEY_ord;
++              }
++
++              if (name[2] == 'w' &&
++                  name[3] == 'W' &&
++                  name[4] == 'w')
++              {                                   /* wWwWw      */
++                return KEY_our;
++              }
++
++              if (name[2] == 'w' &&
++                  name[3] == 'W' &&
++                  name[4] == 'W')
++              {                                   /* wWwWW      */
++                return -KEY_pop;
++              }
++
++              if (name[2] == 'W' &&
++                  name[3] == 'w' &&
++                  name[4] == 'w')
++              {                                   /* wWWww      */
++                return KEY_pos;
++              }
++
++              if (name[2] == 'W' &&
++                  name[3] == 'w' &&
++                  name[4] == 'W')
++              {                                   /* wWWwW      */
++                return -KEY_ref;
++              }
++
++              if (name[2] == 'W' &&
++                  name[3] == 'W' &&
++                  name[4] == 'w')
++              {                                   /* wWWWw      */
++                return (all_keywords || FEATURE_IS_ENABLED("say") ? KEY_say : 0);
++              }
++
++              if (name[2] == 'W' &&
++                  name[3] == 'W' &&
++                  name[4] == 'W')
++              {                                   /* wWWWW      */
++                return -KEY_sin;
++              }
++
++              goto unknown;
++
++            default:
++              goto unknown;
++          }
++
++        case 'W':
++          switch (name[1])
++          {
++            case 'w':
++              if (name[2] == 'w' &&
++                  name[3] == 'w' &&
++                  name[4] == 'w')
++              {                                   /* Wwwww      */
++                return KEY_sub;
++              }
++
++              if (name[2] == 'w' &&
++                  name[3] == 'w' &&
++                  name[4] == 'W')
++              {                                   /* WwwwW      */
++                return KEY_tie;
++              }
++
++              if (name[2] == 'w' &&
++                  name[3] == 'W' &&
++                  name[4] == 'w')
++              {                                   /* WwwWw      */
++                return KEY_use;
++              }
++
++              if (name[2] == 'w' &&
++                  name[3] == 'W' &&
++                  name[4] == 'W')
++              {                                   /* WwwWW      */
++                return -KEY_vec;
++              }
++
++              if (name[2] == 'W' &&
++                  name[3] == 'w' &&
++                  name[4] == 'w')
++              {                                   /* WwWww      */
++                return -KEY_xor;
++              }
++
++              if (name[2] == 'W' &&
++                  name[3] == 'w' &&
++                  name[4] == 'W')
++              {                                   /* WwWwW      */
++                return -KEY_CORE;
++              }
++
++              if (name[2] == 'W' &&
++                  name[3] == 'W' &&
++                  name[4] == 'w')
++              {                                   /* WwWWw      */
++                return KEY_INIT;
++              }
++
++              if (name[2] == 'W' &&
++                  name[3] == 'W' &&
++                  name[4] == 'W')
++              {                                   /* WwWWW      */
++                return -KEY_bind;
++              }
++
++              goto unknown;
++
++            case 'W':
++              if (name[2] == 'w' &&
++                  name[3] == 'w' &&
++                  name[4] == 'w')
++              {                                   /* WWwww      */
++                return -KEY_chop;
++              }
++
++              if (name[2] == 'w' &&
++                  name[3] == 'w' &&
++                  name[4] == 'W')
++              {                                   /* WWwwW      */
++                return -KEY_dump;
++              }
++
++              if (name[2] == 'w' &&
++                  name[3] == 'W' &&
++                  name[4] == 'w')
++              {                                   /* WWwWw      */
++                return -KEY_each;
++              }
++
++              if (name[2] == 'w' &&
++                  name[3] == 'W' &&
++                  name[4] == 'W')
++              {                                   /* WWwWW      */
++                return KEY_else;
++              }
++
++              if (name[2] == 'W' &&
++                  name[3] == 'w' &&
++                  name[4] == 'w')
++              {                                   /* WWWww      */
++                return KEY_eval;
++              }
++
++              if (name[2] == 'W' &&
++                  name[3] == 'w' &&
++                  name[4] == 'W')
++              {                                   /* WWWwW      */
++                return -KEY_exec;
++              }
++
++              if (name[2] == 'W' &&
++                  name[3] == 'W' &&
++                  name[4] == 'w')
++              {                                   /* WWWWw      */
++                return -KEY_exit;
++              }
++
++              if (name[2] == 'W' &&
++                  name[3] == 'W' &&
++                  name[4] == 'W')
++              {                                   /* WWWWW      */
++                return -KEY_fork;
++              }
++
++              goto unknown;
++
+             default:
+               goto unknown;
+           }
+@@ -9979,44 +10431,626 @@
+ 
+           goto unknown;
+ 
+-        default:
+-          goto unknown;
+-      }
++        case 'w':
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'w')
++          {                                       /* wwwwww     */
++            return -KEY_getc;
++          }
+ 
+-    case 7: /* 29 tokens of length 7 */
+-      switch (name[0])
+-      {
+-        case 'D':
+-          if (name[1] == 'E' &&
+-              name[2] == 'S' &&
+-              name[3] == 'T' &&
+-              name[4] == 'R' &&
+-              name[5] == 'O' &&
+-              name[6] == 'Y')
+-          {                                       /* DESTROY    */
+-            return KEY_DESTROY;
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'W')
++          {                                       /* wwwwwW     */
++            return KEY_glob;
+           }
+ 
+-          goto unknown;
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'w')
++          {                                       /* wwwwWw     */
++            return KEY_goto;
++          }
+ 
+-        case '_':
+-          if (name[1] == '_' &&
+-              name[2] == 'E' &&
+-              name[3] == 'N' &&
+-              name[4] == 'D' &&
+-              name[5] == '_' &&
+-              name[6] == '_')
+-          {                                       /* __END__    */
+-            return KEY___END__;
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'W')
++          {                                       /* wwwwWW     */
++            return KEY_grep;
+           }
+ 
+-          goto unknown;
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'w')
++          {                                       /* wwwWww     */
++            return -KEY_join;
++          }
+ 
+-        case 'b':
+-          if (name[1] == 'i' &&
+-              name[2] == 'n' &&
+-              name[3] == 'm' &&
+-              name[4] == 'o' &&
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'W')
++          {                                       /* wwwWwW     */
++            return -KEY_keys;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'w')
++          {                                       /* wwwWWw     */
++            return -KEY_kill;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'W')
++          {                                       /* wwwWWW     */
++            return KEY_last;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'w')
++          {                                       /* wwWwww     */
++            return -KEY_link;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'W')
++          {                                       /* wwWwwW     */
++            return -KEY_lock;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'w')
++          {                                       /* wwWwWw     */
++            return KEY_next;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'W')
++          {                                       /* wwWwWW     */
++            return -KEY_open;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'w')
++          {                                       /* wwWWww     */
++            return -KEY_pack;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'W')
++          {                                       /* wwWWwW     */
++            return -KEY_pipe;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'w')
++          {                                       /* wwWWWw     */
++            return -KEY_push;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'W')
++          {                                       /* wwWWWW     */
++            return -KEY_rand;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'w')
++          {                                       /* wWwwww     */
++            return -KEY_read;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'W')
++          {                                       /* wWwwwW     */
++            return -KEY_recv;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'w')
++          {                                       /* wWwwWw     */
++            return KEY_redo;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'W')
++          {                                       /* wWwwWW     */
++            return -KEY_seek;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'w')
++          {                                       /* wWwWww     */
++            return -KEY_send;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'W')
++          {                                       /* wWwWwW     */
++            return KEY_sort;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'w')
++          {                                       /* wWwWWw     */
++            return -KEY_sqrt;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'W')
++          {                                       /* wWwWWW     */
++            return -KEY_stat;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'w')
++          {                                       /* wWWwww     */
++            return -KEY_tell;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'W')
++          {                                       /* wWWwwW     */
++            return KEY_tied;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'w')
++          {                                       /* wWWwWw     */
++            return -KEY_time;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'W')
++          {                                       /* wWWwWW     */
++            return -KEY_wait;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'w')
++          {                                       /* wWWWww     */
++            return -KEY_warn;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'W')
++          {                                       /* wWWWwW     */
++            return (all_keywords || FEATURE_IS_ENABLED("switch") ? KEY_when : 0);
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'w')
++          {                                       /* wWWWWw     */
++            return KEY_BEGIN;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'W')
++          {                                       /* wWWWWW     */
++            return KEY_CHECK;
++          }
++
++          goto unknown;
++
++        case 'W':
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'w')
++          {                                       /* Wwwwww     */
++            return -KEY_alarm;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'W')
++          {                                       /* WwwwwW     */
++            return -KEY_atan2;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'w')
++          {                                       /* WwwwWw     */
++            return -KEY_bless;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'W')
++          {                                       /* WwwwWW     */
++            return (all_keywords || FEATURE_IS_ENABLED("switch") ? -KEY_break : 0);
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'w')
++          {                                       /* WwwWww     */
++            return -KEY_chdir;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'W')
++          {                                       /* WwwWwW     */
++            return -KEY_chmod;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'w')
++          {                                       /* WwwWWw     */
++            return -KEY_chomp;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'W')
++          {                                       /* WwwWWW     */
++            return -KEY_chown;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'w')
++          {                                       /* WwWwww     */
++            return -KEY_close;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'W')
++          {                                       /* WwWwwW     */
++            return -KEY_crypt;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'w')
++          {                                       /* WwWwWw     */
++            return KEY_elsif;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'W')
++          {                                       /* WwWwWW     */
++            return -KEY_fcntl;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'w')
++          {                                       /* WwWWww     */
++            return -KEY_flock;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'W')
++          {                                       /* WwWWwW     */
++            return (all_keywords || FEATURE_IS_ENABLED("switch") ? KEY_given : 0);
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'w')
++          {                                       /* WwWWWw     */
++            return -KEY_index;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'W')
++          {                                       /* WwWWWW     */
++            return -KEY_ioctl;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'w')
++          {                                       /* WWwwww     */
++            return KEY_local;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'W')
++          {                                       /* WWwwwW     */
++            return -KEY_lstat;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'w')
++          {                                       /* WWwwWw     */
++            return -KEY_mkdir;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'W')
++          {                                       /* WWwwWW     */
++            return KEY_print;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'w')
++          {                                       /* WWwWww     */
++            return -KEY_reset;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'W')
++          {                                       /* WWwWwW     */
++            return -KEY_rmdir;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'w')
++          {                                       /* WWwWWw     */
++            return -KEY_semop;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'W')
++          {                                       /* WWwWWW     */
++            return -KEY_shift;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'w')
++          {                                       /* WWWwww     */
++            return -KEY_sleep;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'W')
++          {                                       /* WWWwwW     */
++            return KEY_split;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'w')
++          {                                       /* WWWwWw     */
++            return -KEY_srand;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'W')
++          {                                       /* WWWwWW     */
++            return (all_keywords || FEATURE_IS_ENABLED("state") ? KEY_state : 0);
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'w')
++          {                                       /* WWWWww     */
++            return KEY_study;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'W')
++          {                                       /* WWWWwW     */
++            return -KEY_times;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'w')
++          {                                       /* WWWWWw     */
++            return -KEY_umask;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'W')
++          {                                       /* WWWWWW     */
++            return KEY_undef;
++          }
++
++          goto unknown;
++
++        default:
++          goto unknown;
++      }
++
++    case 7: /* 29 tokens of length 7 */
++      switch (name[0])
++      {
++        case 'D':
++          if (name[1] == 'E' &&
++              name[2] == 'S' &&
++              name[3] == 'T' &&
++              name[4] == 'R' &&
++              name[5] == 'O' &&
++              name[6] == 'Y')
++          {                                       /* DESTROY    */
++            return KEY_DESTROY;
++          }
++
++          goto unknown;
++
++        case '_':
++          if (name[1] == '_' &&
++              name[2] == 'E' &&
++              name[3] == 'N' &&
++              name[4] == 'D' &&
++              name[5] == '_' &&
++              name[6] == '_')
++          {                                       /* __END__    */
++            return KEY___END__;
++          }
++
++          goto unknown;
++
++        case 'b':
++          if (name[1] == 'i' &&
++              name[2] == 'n' &&
++              name[3] == 'm' &&
++              name[4] == 'o' &&
+               name[5] == 'd' &&
+               name[6] == 'e')
+           {                                       /* binmode    */
+@@ -10398,6 +11432,1279 @@
+             return -KEY_waitpid;
+           }
+ 
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* wwwwwww    */
++            return KEY_untie;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* wwwwwwW    */
++            return KEY_until;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* wwwwwWw    */
++            return -KEY_utime;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* wwwwwWW    */
++            return KEY_while;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* wwwwWww    */
++            return -KEY_write;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* wwwwWwW    */
++            return -KEY_accept;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* wwwwWWw    */
++            return -KEY_caller;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* wwwwWWW    */
++            return -KEY_chroot;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* wwwWwww    */
++            return KEY_delete;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* wwwWwwW    */
++            Perl_ck_warner_d(aTHX_ packWARN(WARN_SYNTAX), "elseif should be elsif");
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* wwwWwWw    */
++            return KEY_exists;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* wwwWwWW    */
++            return -KEY_fileno;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* wwwWWww    */
++            return KEY_format;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* wwwWWwW    */
++            return -KEY_gmtime;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* wwwWWWw    */
++            return -KEY_length;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* wwwWWWW    */
++            return -KEY_listen;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* wwWwwww    */
++            return -KEY_msgctl;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* wwWwwwW    */
++            return -KEY_msgget;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* wwWwwWw    */
++            return -KEY_msgrcv;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* wwWwwWW    */
++            return -KEY_msgsnd;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* wwWwWww    */
++            return KEY_printf;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* wwWwWwW    */
++            return -KEY_rename;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* wwWwWWw    */
++            return KEY_return;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* wwWwWWW    */
++            return -KEY_rindex;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* wwWWwww    */
++            return KEY_scalar;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* wwWWwwW    */
++            return -KEY_select;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* wwWWwWw    */
++            return -KEY_semctl;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* wwWWwWW    */
++            return -KEY_semget;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* wwWWWww    */
++            return -KEY_shmctl;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* wwWWWwW    */
++            return -KEY_shmget;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* wwWWWWw    */
++            return -KEY_socket;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* wwWWWWW    */
++            return -KEY_splice;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* wWwwwww    */
++            return -KEY_substr;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* wWwwwwW    */
++            return -KEY_system;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* wWwwwWw    */
++            return KEY_unless;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* wWwwwWW    */
++            return -KEY_unlink;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* wWwwWww    */
++            return -KEY_unpack;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* wWwwWwW    */
++            return -KEY_values;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* wWwwWWw    */
++            return KEY_DESTROY;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* wWwwWWW    */
++            return KEY___END__;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* wWwWwww    */
++            return -KEY_binmode;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* wWwWwwW    */
++            return -KEY_connect;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* wWwWwWw    */
++            return -KEY_dbmopen;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* wWwWwWW    */
++            return (all_keywords || FEATURE_IS_ENABLED("switch") ? KEY_default : 0);
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* wWwWWww    */
++            return KEY_defined;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* wWwWWwW    */
++            return KEY_foreach;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* wWwWWWw    */
++            return -KEY_getpgrp;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* wWwWWWW    */
++            return -KEY_getppid;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* wWWwwww    */
++            return -KEY_lcfirst;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* wWWwwwW    */
++            return -KEY_opendir;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* wWWwwWw    */
++            return KEY_package;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* wWWwwWW    */
++            return -KEY_readdir;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* wWWwWww    */
++            return KEY_require;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* wWWwWwW    */
++            return -KEY_reverse;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* wWWwWWw    */
++            return -KEY_seekdir;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* wWWwWWW    */
++            return -KEY_setpgrp;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* wWWWwww    */
++            return -KEY_shmread;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* wWWWwwW    */
++            return -KEY_sprintf;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* wWWWwWw    */
++            return -KEY_symlink;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* wWWWwWW    */
++            return -KEY_syscall;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* wWWWWww    */
++            return -KEY_sysopen;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* wWWWWwW    */
++            return -KEY_sysread;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* wWWWWWw    */
++            return -KEY_sysseek;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* wWWWWWW    */
++            return -KEY_telldir;
++          }
++
++          goto unknown;
++
++        case 'W':
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* Wwwwwww    */
++            return -KEY_ucfirst;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* WwwwwwW    */
++            return -KEY_unshift;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* WwwwwWw    */
++            return -KEY_waitpid;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* WwwwwWW    */
++            return KEY_AUTOLOAD;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* WwwwWww    */
++            return KEY___DATA__;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* WwwwWwW    */
++            return -KEY___FILE__;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* WwwwWWw    */
++            return -KEY___LINE__;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* WwwwWWW    */
++            return -KEY_closedir;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* WwwWwww    */
++            return -KEY_continue;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* WwwWwwW    */
++            return -KEY_dbmclose;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* WwwWwWw    */
++            return -KEY_endgrent;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* WwwWwWW    */
++            return -KEY_endpwent;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* WwwWWww    */
++            return -KEY_formline;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* WwwWWwW    */
++            return -KEY_getgrent;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* WwwWWWw    */
++            return -KEY_getgrgid;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* WwwWWWW    */
++            return -KEY_getgrnam;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* WwWwwww    */
++            return -KEY_getlogin;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* WwWwwwW    */
++            return -KEY_getpwent;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* WwWwwWw    */
++            return -KEY_getpwnam;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* WwWwwWW    */
++            return -KEY_getpwuid;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* WwWwWww    */
++            return -KEY_readline;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* WwWwWwW    */
++            return -KEY_readlink;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* WwWwWWw    */
++            return -KEY_readpipe;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* WwWwWWW    */
++            return -KEY_setgrent;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* WwWWwww    */
++            return -KEY_setpwent;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* WwWWwwW    */
++            return -KEY_shmwrite;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* WwWWwWw    */
++            return -KEY_shutdown;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* WwWWwWW    */
++            return -KEY_syswrite;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* WwWWWww    */
++            return -KEY_truncate;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* WwWWWwW    */
++            return KEY_UNITCHECK;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* WwWWWWw    */
++            return -KEY_endnetent;
++          }
++
++          if (name[1] == 'w' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* WwWWWWW    */
++            return -KEY_getnetent;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* WWwwwww    */
++            return -KEY_localtime;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* WWwwwwW    */
++            return KEY_prototype;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* WWwwwWw    */
++            return -KEY_quotemeta;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* WWwwwWW    */
++            return -KEY_rewinddir;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* WWwwWww    */
++            return -KEY_setnetent;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* WWwwWwW    */
++            return -KEY_wantarray;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* WWwwWWw    */
++            return -KEY_endhostent;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* WWwwWWW    */
++            return -KEY_endservent;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* WWwWwww    */
++            return -KEY_gethostent;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* WWwWwwW    */
++            return -KEY_getservent;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* WWwWwWw    */
++            return -KEY_getsockopt;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* WWwWwWW    */
++            return -KEY_sethostent;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* WWwWWww    */
++            return -KEY_setservent;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* WWwWWwW    */
++            return -KEY_setsockopt;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* WWwWWWw    */
++            return -KEY_socketpair;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'w' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* WWwWWWW    */
++            return -KEY___PACKAGE__;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* WWWwwww    */
++            return -KEY_endprotoent;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* WWWwwwW    */
++            return -KEY_getpeername;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* WWWwwWw    */
++            return -KEY_getpriority;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* WWWwwWW    */
++            return -KEY_getprotoent;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* WWWwWww    */
++            return -KEY_getsockname;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* WWWwWwW    */
++            return -KEY_setpriority;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* WWWwWWw    */
++            return -KEY_setprotoent;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'w' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* WWWwWWW    */
++            return -KEY_getnetbyaddr;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* WWWWwww    */
++            return -KEY_getnetbyname;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* WWWWwwW    */
++            return -KEY_gethostbyaddr;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* WWWWwWw    */
++            return -KEY_gethostbyname;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'w' &&
++              name[5] == 'W' &&
++              name[6] == 'W')
++          {                                       /* WWWWwWW    */
++            return -KEY_getservbyname;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'w')
++          {                                       /* WWWWWww    */
++            return -KEY_getservbyport;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'w' &&
++              name[6] == 'W')
++          {                                       /* WWWWWwW    */
++            return -KEY_getprotobyname;
++          }
++
++          if (name[1] == 'W' &&
++              name[2] == 'W' &&
++              name[3] == 'W' &&
++              name[4] == 'W' &&
++              name[5] == 'W' &&
++              name[6] == 'w')
++          {                                       /* WWWWWWw    */
++            return -KEY_getprotobynumber;
++          }
++
+           goto unknown;
+ 
+         default:
